@@ -1,5 +1,5 @@
 # Microcontroller_EE310
-mkdir -p Assignments Projects Others
-mkdir -p Assignments/Assignment_x-Blinking_LED
-mkdir -p Assignments/Assignment_y-Counting
-mkdir -p Assignments/Assignment_z-Title
+- Assignments Projects Others
+- Assignments/Assignment_x-Blinking_LED
+- Assignments/Assignment_y-Counting
+- Assignments/Assignment_z-Title
