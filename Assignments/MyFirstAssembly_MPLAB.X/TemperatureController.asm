@@ -25,8 +25,8 @@
 ;It is more flexible and can be used to define complex expressions or sequences 
 ;of instructions.
 ;It is processed by the preprocessor before the assembly begins.
-#define  measuredTempInput 	-5 ; this is the input value
-#define  refTempInput 		15 ; this is the input value
+#define  measuredTempInput 	-2 ; this is the input value
+#define  refTempInput 		10 ; this is the input value
 
 ;---------------------
 ; Definitions
@@ -114,18 +114,24 @@ _start2:
     GOTO    _LED_COOL   ; Jump to LED_COOL
 
 _LED_HOT:
-    BSF PORTD,1         ; Turn ON heating LED
-    BCF PORTD,2         ; Turn OFF cooling LED
+    MOVLW 1
+    MOVWF contReg
+    MOVLW 2
+    MOVWF PORTD
     GOTO _END_LOOP      ; Stay in an infinite loop 
 
 _LED_COOL:
-    BCF PORTD,1         ; Turn OFF heating LED
-    BSF PORTD,2         ; Turn ON cooling LED
+    MOVLW 2
+    MOVWF contReg
+    MOVLW 4
+    MOVWF PORTD
     GOTO _END_LOOP      ; Stay in an infinite loop 
 
 _LED_OFF:
-    BCF PORTD,1         ; Turn OFF heating LED
-    BCF PORTD,2         ; Turn OFF cooling LED
+    MOVLW 0
+    MOVWF contReg
+    MOVLW 0
+    MOVWF PORTD
     GOTO _END_LOOP      ; Stay in an infinite loop 
 
 _END_LOOP:

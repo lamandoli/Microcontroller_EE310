@@ -32774,21 +32774,21 @@ _start1:
     MOVWF TRISD ; Initialize TRISD, move WREG to TRISD
     BRA HEXtoBCD
 _start2:
-    MOVLW 10 ; this is the input value ; Move literal(10 ; this is the input value) to WREG
-    MOVWF 0X20 ; Move literal(10 ; this is the input value) to location 0x20
-    MOVLW -2 ; this is the input value ; Move literal(-2 ; this is the input value) to WREG
-    MOVWF 0X21 ; Move literal(-2 ; this is the input value) to location 0x21
+    MOVLW 8 ; this is the input value ; Move literal(8 ; this is the input value) to WREG
+    MOVWF 0X20 ; Move literal(8 ; this is the input value) to location 0x20
+    MOVLW -9 ; this is the input value ; Move literal(-9 ; this is the input value) to WREG
+    MOVWF 0X21 ; Move literal(-9 ; this is the input value) to location 0x21
     MOVF 0x21, W ; Load measuredTemp from register 0x21 into WREG
 
 ;;--------------------------------------------------
-;; Check 0x33 of -2 ; this is the input value (see if negative)
+;; Check 0x33 of -9 ; this is the input value (see if negative)
 ;;--------------------------------------------------
 ;CLRF 0x33 ; Clear 0x33 flag (default = positive)
-;BTFSS 0x21, 7 ; Check if `-2 ; this is the input value` is negative (bit 7 = 1)
-;GOTO HEXtoBCD ; If -2 ; this is the input value is positive, skip 0x33 check
+;BTFSS 0x21, 7 ; Check if `-9 ; this is the input value` is negative (bit 7 = 1)
+;GOTO HEXtoBCD ; If -9 ; this is the input value is positive, skip 0x33 check
 ;; If measuredInputTemp is negative:
 ;MOVLW 0x01
-;MOVWF 0x33 ; Set the 0x33 flag to 1 because -2 ; this is the input value is negative
+;MOVWF 0x33 ; Set the 0x33 flag to 1 because -9 ; this is the input value is negative
 ;COMF 0x21, W ; Take 1's complement
 ;ADDLW 0x01 ; Add 1 to turn into 2's complement
 ;MOVWF 0x21
@@ -32827,26 +32827,22 @@ _LED_HOT:
     MOVWF 0x22 ;
 ; BSF PORTD,1 ; Turn ON heating LED
 ; BCF PORTD,2 ; Turn OFF cooling LED
-    MOVLW 2
+    MOVLW 4
     MOVWF PORTD
     GOTO _END_LOOP ; Stay in an infinite loop
 
 _LED_COOL:
     MOVLW 2
     MOVWF 0x22 ;
-; BCF PORTD,1 ; Turn OFF heating LED
-; BSF PORTD,2 ; Turn ON cooling LED
-    MOVLW 4
-    MOVWF PORTD
+    BCF PORTD,1 ; Turn OFF heating LED
+    BSF PORTD,2 ; Turn ON cooling LED
     GOTO _END_LOOP ; Stay in an infinite loop
 
 _LED_OFF:
     MOVLW 0
     MOVWF 0x22 ;
-; BCF PORTD,1 ; Turn OFF heating LED
-; BCF PORTD,2 ; Turn OFF cooling LED
-    MOVLW 0
-    MOVWF PORTD
+    BCF PORTD,1 ; Turn OFF heating LED
+    BCF PORTD,2 ; Turn OFF cooling LED
     GOTO _END_LOOP ; Stay in an infinite loop
 
 _END_LOOP:
@@ -32854,16 +32850,16 @@ _END_LOOP:
     GOTO _END_LOOP
 
 ;---------------------------------------
-; HEX to BCD conversion for 10 ; this is the input value
+; HEX to BCD conversion for 8 ; this is the input value
 ;---------------------------------------
 HEXtoBCD:
     CLRF 0x31 ; Clear counter
-    MOVLW 10 ; this is the input value ; WREG = 10 ; this is the input value
+    MOVLW 8 ; this is the input value ; WREG = 8 ; this is the input value
     MOVWF 0x32 ; store numerator in 0x32
     BTFSC 0x32,7 ; Bit check bit 7, if clear skip next line
     NEGF 0x32 ; If negative, take 2's comp
     MOVLW 100 ; Sets up WREG for Loop100s conversion
-     ; Converts 100s place of 10 ; this is the input value to BCD
+     ; Converts 100s place of 8 ; this is the input value to BCD
 Loop100sRef:
     INCF 0x31, F ; increment quotient for every 10 subtraction
     SUBWF 0x32, F ; subtract 10 (F = F - W)
@@ -32873,7 +32869,7 @@ Loop100sRef:
     MOVFF 0x31,0x62 ; Places 100's place value into 0x62
     CLRF 0x31 ; Clear counter
     MOVLW 10 ; Sets up WREG for Loop10s conversion
-                          ; Converts 10s place of 10 ; this is the input value to BCD
+                          ; Converts 10s place of 8 ; this is the input value to BCD
 Loop10sRef:
     INCF 0x31, F ; increment quotient for every 10 subtraction
     SUBWF 0x32, F ; subtract 10 (F = F - W)
@@ -32882,17 +32878,17 @@ Loop10sRef:
     ADDWF 0x32, F ; add 10 back to get remainder
     MOVFF 0x31,0x61 ; Places 10's place value into 0x61
     MOVFF 0x32, 0x60 ; Places 1's place value into 0x60
-                          ; Converts 10s place of 10 ; this is the input value to BCD
+                          ; Converts 10s place of 8 ; this is the input value to BCD
 ;--------------------------------------------
-; HEX to BCD conversion for -2 ; this is the input value
+; HEX to BCD conversion for -9 ; this is the input value
 ;--------------------------------------------
     CLRF 0x31 ; Clear counter
-    MOVLW -2 ; this is the input value ; WREG = -2 ; this is the input value
+    MOVLW -9 ; this is the input value ; WREG = -9 ; this is the input value
     MOVWF 0x32 ; store numerator in 0x32
     BTFSC 0x32,7 ; Bit check bit 7, if clear skip next line
     NEGF 0x32 ; If negative, take 2's comp
     MOVLW 100 ; Sets up WREG for Loop100s conversion
-         ; Converts 100s place of -2 ; this is the input value to BCD
+         ; Converts 100s place of -9 ; this is the input value to BCD
 
 Loop100sMeas:
     INCF 0x31, F ; increment quotient for every 10 subtraction
@@ -32902,7 +32898,7 @@ Loop100sMeas:
     ADDWF 0x32, F ; add 10 back to get remainder
     MOVFF 0x31,0x72 ; Places 100's place value into 0x72
     MOVLW 10 ; Sets up WREG for Loop10s conversion
-                          ; Converts 10s place of -2 ; this is the input value to BCD
+                          ; Converts 10s place of -9 ; this is the input value to BCD
 
 Loop10sMeas:
     INCF 0x31, F ; increment quotient for every 10 subtraction
@@ -32912,5 +32908,5 @@ Loop10sMeas:
     ADDWF 0x32, F ; add 10 back to get remainder
     MOVFF 0x31,0x71 ; Places 10's place value into 0x71
     MOVFF 0x32, 0x70 ; Places 1's place value into 0x70
-                          ; Converts 10s place of -2 ; this is the input value to BCD
+                          ; Converts 10s place of -9 ; this is the input value to BCD
 GOTO _start2
