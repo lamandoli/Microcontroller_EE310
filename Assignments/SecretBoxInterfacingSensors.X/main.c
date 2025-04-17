@@ -13,8 +13,8 @@
 // - functions.h - file containing all program functions
 // Compiler: XC8 v2.46
 // Author: Lee Amandoli
-// OUTPUTS: Buzzer turns on or Fan motor turns on
-// INPUTS: Secret code via use of photoresistors. Button1 to confirm code entry. Button2 for interrupt
+// OUTPUTS: Buzzer(RB2) turns on or Fan motor (RA5) turns on. 7 segment display(RD0:6)
+// INPUTS: Secret code via use of photoresistors (RA0:1). Button1(RB1) to confirm code entry. Button2(RB0) for interrupt.
 // HARDWARE: PIC18F47K42 microcontroller, qty-2 power supplies, qty-2 photoresistors, qty-2 switches, qty-1 7seg display,
 //           qty-1 5V buzzer, qty-1 motor, qty-1 relay module, qty-2 transistors(driver), qty-2 breadboards, various resistors,
 //           various wiring. 
